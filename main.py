@@ -1,3 +1,10 @@
-print ("World, hello")
+first = 'Hello'
+second = 'hello'
 
-print("hello git")
+def compare(first, second):
+    if first.upper() == second.upper():
+        return True
+    else: 
+        return False
+result = (compare(first, second))
+print(result)
