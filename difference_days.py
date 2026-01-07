@@ -1,24 +1,22 @@
 from datetime import datetime
 
 # Розраховує кількість днів між заданою датою і поточною датою
-def get_days_from_today(date): 
-    date = datetime.strptime(date, '%Y-%m-%d')
+def get_days_from_today(date):
+    # Перевірка правильності формату дати
+    try:
+        date = datetime.strptime(date, '%Y-%m-%d')
+    except ValueError:
+        print("Неправильний формат дати. Будь ласка, використовуйте формат РРРР-ММ-ДД.")
+        return
+    
+    # Обчислення різниці в днях
     today = datetime.today()
     diff_days = today - date
-    
-    return diff_days.days
+    print(f"Кількість днів між {date.strftime('%Y-%m-%d')} і сьогоднішньою датою: {diff_days.days} днів.")
 
-input_date = input("Введіть дату у форматі РРРР-ММ-ДД: ")
 
- # Перевірка правильності формату дати
-try:
-    datetime.strptime(input_date, '%Y-%m-%d')
-except ValueError:
-    print("Неправильний формат дати. Будь ласка, використовуйте формат РРРР-ММ-ДД.")
-    exit()
+get_days_from_today(input("Введіть дату у форматі РРРР-ММ-ДД: "))
 
-days_difference = get_days_from_today(input_date)
 
-print(f"Кількість днів між {input_date} і сьогоднішньою датою: {days_difference} днів.")
 
 
