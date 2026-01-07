@@ -1,30 +1,29 @@
 import random
 
 # Функція для генерації лотерейних номерів
-def get_numbers_ticket(min, max, quantity):
+def get_numbers_ticket(min_value, max_value, quantity):
     ticket = set()
-    if min >= 1 and max <=1000 and 1 <=quantity <= max:
-        for number in range(min, max):
-            ticket.add(number)
-        return random.sample(list(ticket), quantity)
-    else:
-        print('Мінімальне значення має бути не меншим за 1, максимальне не більшим за 1000, а '\
+    try:
+        min_value = int(min_value)
+        max_value = int(max_value)
+        quantity = int(quantity) 
+        if min_value >= 1 and max_value <=1000 and quantity <= (max_value - min_value + 1) and min_value < max_value:
+            for number in range(min_value, max_value + 1):
+                ticket.add(number)
+            ticket_numbers = sorted(random.sample(list(ticket), quantity))
+            return ticket_numbers
+        else:
+            return []
+    except ValueError:
+        print('Перевірте коректність введених даних. Мінімальне значення має бути не меншим за 1, максимальне не більшим за 1000, а '\
               'кількість номерів має бути в межах від мінімального до максимального значення.')
-        exit()
+        return []
 
-min = input('Введіть мінімальне значення: ')
-max = input('Введіть максимальне значення: ')
+# Запит користувача на введення параметрів
+
+min_value = input('Введіть мінімальне значення: ')
+max_value = input('Введіть максимальне значення: ')
 quantity = input('Введіть кількість номерів: ')
 
-# Перевірка на коректність введених даних
-try:
-    int(min)
-    int(max)
-    int(quantity)
-except ValueError:
-    print('Будь ласка, введіть коректні числові значення для мінімального, максимального значень та кількості номерів.')
-    exit() 
-
 # Генерація та виведення лотерейних номерів
-ticket_numbers = get_numbers_ticket(int(min), int(max), int(quantity))
-print(sorted(ticket_numbers))
+print('Ваші лотерейні номери:', get_numbers_ticket(min_value, max_value, quantity))
